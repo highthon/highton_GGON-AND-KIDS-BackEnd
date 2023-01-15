@@ -3,12 +3,11 @@ package com.ggonandkids.zzol.domain.user.presentation;
 import com.ggonandkids.zzol.domain.user.Member;
 import com.ggonandkids.zzol.domain.user.presentation.dto.request.MemberRequestDto;
 import com.ggonandkids.zzol.domain.user.presentation.dto.response.MemberInfoResponseDto;
+import com.ggonandkids.zzol.domain.user.presentation.dto.response.MemberResponseDto;
 import com.ggonandkids.zzol.domain.user.service.MemberService;
+import com.ggonandkids.zzol.global.annotation.AuthToken;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -23,7 +22,13 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    private MemberInfoResponseDto login(@RequestBody MemberRequestDto requestDto){
+    private MemberResponseDto login(@RequestBody MemberRequestDto requestDto){
         return memberService.login(requestDto);
+    }
+
+    @AuthToken
+    @GetMapping("/read")
+    private MemberInfoResponseDto findOne(@RequestAttribute Member member){
+        return new MemberInfoResponseDto(member);
     }
 }

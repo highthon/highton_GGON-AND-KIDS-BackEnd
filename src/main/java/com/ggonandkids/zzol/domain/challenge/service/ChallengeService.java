@@ -53,4 +53,14 @@ public class ChallengeService {
     public void delete(Long challengeId){
         challengeRepository.deleteById(challengeId);
     }
+
+    @Transactional
+    public void attendUp(Long challengeId){
+        Challenge challenge = challengeRepository.findById(challengeId)
+                .orElseThrow(() ->
+                        new GlobalException(HttpStatus.NOT_FOUND, "게시글이 존재하지 않습니다.")
+                );
+        int challengeAttend = challenge.getAttend() + 1;
+        challenge.setAttend(challengeAttend);
+    }
 }

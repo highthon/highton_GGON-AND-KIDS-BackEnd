@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long memberId;
     private String id;
     private String password;
 
@@ -27,7 +27,19 @@ public class Member {
 
     public static class NotFoundException extends GlobalException {
         public NotFoundException() {
-            super(HttpStatus.BAD_REQUEST, "아아디또는 비밀번호가 틀렷습니다.");
+            super(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다.");
+        }
+    }
+
+    public static class UnAuthenticationException extends GlobalException {
+        public UnAuthenticationException() {
+            super(HttpStatus.UNAUTHORIZED, "토큰이 입력되지 않았습니다.");
+        }
+    }
+
+    public static class ForbiddenException extends GlobalException {
+        public ForbiddenException() {
+            super(HttpStatus.FORBIDDEN, "접근할 수 있는 권한이 없습니다.");
         }
     }
 

@@ -10,7 +10,7 @@ public class ChallengeResponseDto {
     private Long challengeId;
     private String title;
     private String body;
-    private int time;
+    private float time;
     private int attend;
     private String id;
 

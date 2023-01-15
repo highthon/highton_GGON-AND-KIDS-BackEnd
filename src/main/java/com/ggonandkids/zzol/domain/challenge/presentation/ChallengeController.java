@@ -6,7 +6,7 @@ import com.ggonandkids.zzol.domain.challenge.presentation.dto.response.Challenge
 import com.ggonandkids.zzol.domain.challenge.service.ChallengeService;
 import com.ggonandkids.zzol.domain.user.Member;
 import com.ggonandkids.zzol.domain.user.domain.repository.MemberRepository;
-import com.ggonandkids.zzol.global.response.ResponseService;
+import com.ggonandkids.zzol.global.annotation.AuthToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +18,10 @@ import java.util.List;
 public class ChallengeController {
     private final ChallengeService challengeService;
     private final MemberRepository memberRepository;
-    private final ResponseService responseService;
 
-    @PostMapping("/create/{id}")
-    public Challenge create(@RequestBody ChallengeRequestDto requestDto, @PathVariable String id){
-        Member member = memberRepository.findById(id);
+    @AuthToken
+    @PostMapping("/create")
+    public Challenge create(@RequestBody ChallengeRequestDto requestDto, @RequestAttribute Member member){
         return challengeService.create(requestDto, member);
     }
 
@@ -36,8 +35,8 @@ public class ChallengeController {
         return challengeService.findChallengeAll();
     }
 
-    @DeleteMapping("/delete/{ChallengeId}")
-    public void delete(@PathVariable Long ChallengeId){
-        challengeService.delete(ChallengeId);
+    @DeleteMapping("/delete/{challengeId}")
+    public void delete(@PathVariable Long challengeId){
+        challengeService.delete(challengeId);
     }
 }

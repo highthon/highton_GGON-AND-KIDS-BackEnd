@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class Challenge {
@@ -14,7 +16,7 @@ public class Challenge {
     private Long challengeId;
     private String title;
     private String body;
-    private int time;
+    private float time;
     private int attend;
 
     @ManyToOne
@@ -22,7 +24,7 @@ public class Challenge {
     private Member member;
 
     @Builder
-    public Challenge(String title, String body, int time, int attend, Member member) {
+    public Challenge(String title, String body, float time, int attend, Member member) {
         this.title = title;
         this.body = body;
         this.time = time;

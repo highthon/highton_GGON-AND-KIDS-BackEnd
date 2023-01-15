@@ -9,6 +9,5 @@ import lombok.NoArgsConstructor;
 public class ChallengeRequestDto {
     private String title;
     private String body;
-    private int time;
-    private int attend;
+    private float time;
 }
